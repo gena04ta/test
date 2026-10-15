@@ -3,6 +3,7 @@ workflows:
     name: iOS Unsigned Build
     instance_type: mac_mini_m2
     max_build_duration: 120
+    working_directory: my_app  # <-- Укажите здесь название вашей папки
     environment:
       flutter: stable
       xcode: latest
@@ -10,11 +11,4 @@ workflows:
     scripts:
       - name: Get Flutter packages
         script: flutter pub get
-      - name: Build unsigned iOS app
-        script: |
-          flutter build ios --release --no-codesign
-          mkdir -p Payload
-          cp -r build/ios/iphoneos/Runner.app Payload/
-          zip -r MyApp.ipa Payload
-    artifacts:
-      - MyApp.ipa
+      
